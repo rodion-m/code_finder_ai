@@ -1,12 +1,30 @@
-from typing import List, Tuple, Optional
+import os
+import logging
+from typing import List, Optional
+
 import numpy as np
 from sentence_transformers import SentenceTransformer
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class CodeEmbedder:
     def __init__(self, model_name: str, max_seq_length: int = 8192):
+        # Don't forget to do: huggingface-cli login
         self.model = SentenceTransformer(model_name, trust_remote_code=True)
         self.max_seq_length = max_seq_length
+        logger.info(f"Initialized CodeEmbedder with model {model_name} and max sequence length {max_seq_length}")
+
+    def get_files(self, path: str, extensions: List[str]) -> List[str]:
+        files = []
+        for r, d, f in os.walk(path):
+            for file in f:
+                if file.endswith(tuple(extensions)):
+                    files.append(os.path.join(r, file))
+        logger.info(f"Found {len(files)} files in path {path}")
+        return files
 
     def get_file_contents(self, path: str) -> str:
         """Reads the contents of a file and returns it as a string."""
@@ -24,6 +42,7 @@ class CodeEmbedder:
                     line.strip() == '' and current_length > self.max_seq_length // 2):
                 breakpoints.append(i)
                 current_length = 0
+        logger.debug(f"Identified {len(breakpoints)} breakpoints in text")
         return breakpoints
 
     def split_into_chunks(self, text: str, breakpoints: List[int]) -> List[str]:
@@ -36,31 +55,33 @@ class CodeEmbedder:
             start = end + 1
         if start < len(text.split('\n')):
             chunks.append("\n".join(text.split('\n')[start:]))
+        logger.debug(f"Split text into {len(chunks)} chunks")
         return chunks
 
-    def get_intelligent_file_embeddings(self, path: str) -> Optional[np.ndarray]:
+    def get_intelligent_file_embeddings(self, path: str) -> np.ndarray:
         """Generates an embedding for the file at the given path, handling large files intelligently."""
+        text = self.get_file_contents(path)
+        breakpoints = self.find_breakpoints(text)
+        chunks = self.split_into_chunks(text, breakpoints)
+        embeddings = np.array([self.model.encode(chunk) for chunk in chunks])
+        avg_embedding = np.mean(embeddings, axis=0)
+        logger.info(f"Generated embedding for file {path}")
+        return avg_embedding
+
+    def get_query_embeddings(self, query: str) -> List[int]:
+        """
+        Generates embeddings for a given query string using the SentenceTransformer model.
+
+        Parameters:
+        - query (str): The query string for which to generate embeddings.
+
+        Returns:
+        - np.ndarray: The generated embeddings as a numpy array.
+        """
         try:
-            text = self.get_file_contents(path)
-            breakpoints = self.find_breakpoints(text)
-            chunks = self.split_into_chunks(text, breakpoints)
-            embeddings = np.array([self.model.encode(chunk) for chunk in chunks])
-            avg_embedding = np.mean(embeddings, axis=0)
-            return avg_embedding
+            embeddings = self.model.encode(query)
+            logger.info(f"Generated embeddings for query: {query}")
+            return embeddings.tolist()
         except Exception as e:
-            print(f"Error in generating an embedding for the contents of file {path}: {str(e)}")
-            return None
-
-
-# Example usage
-model_name = "jinaai/jina-embeddings-v2-base-code"  # Replace with the actual model name you're using
-embedder = CodeEmbedder(model_name)
-
-# Assuming you have a list of file paths
-file_paths = ["path/to/file1.py", "path/to/file2.py"]  # Replace with your actual file paths
-embeddings = {}
-
-for path in file_paths:
-    embedding = embedder.get_intelligent_file_embeddings(path)
-    if embedding is not None:
-        embeddings[path] = embedding
+            logger.error(f"Error generating embeddings for query '{query}': {str(e)}")
+            raise
