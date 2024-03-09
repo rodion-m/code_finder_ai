@@ -3,3 +3,4 @@ chromadb
 numpy
 optimum
 onnx # also requires: brew install cmake
+tree_sitter

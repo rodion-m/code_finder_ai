@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="84a04ba3-c81b-49e3-b4ec-6f217b3c379a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="84a04ba3-c81b-49e3-b4ec-6f217b3c379a" name="Changes" comment="Add main, code_embedder, and code_searcher Python scripts&#10;&#10;This commit adds three new files: main.py, code_embedder.py, and code_searcher.py. main.py is the prime script, while code_embedder.py generates code embeddings and code_searcher.py utilizes ChromaDB for indexing and searching codebases. The commit also populates .gitignore for proper maintenance and updates requirements.txt with needed dependencies.">
+      <change beforePath="$PROJECT_DIR$/.idea/code_finder_ai.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/code_finder_ai.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code_embedder.py" beforeDir="false" afterPath="$PROJECT_DIR$/code_embedder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code_searcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/code_searcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code_embedder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code_searcher.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +35,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -48,7 +51,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python tests.Python tests for test_code_parser.TestCodeParserJava.executor": "Run",
+    "Python tests.Python tests for test_code_parser.TestCodeParserJava.test_grammar_file_not_found.executor": "Run",
+    "Python tests.Python tests for test_code_parser.TestCodeParserJava.test_split_into_chunks.executor": "Run",
+    "Python tests.Python tests in code_parser_tests.py.executor": "Run",
+    "Python tests.Python tests in test_code_parser.py.executor": "Run",
+    "Python tests.Unittests for test_code_parser.TestCodeParserJava.test_extract_class_name.executor": "Debug",
     "Python.code_searcher.executor": "Run",
+    "Python.main (1).executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -58,12 +68,12 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.main (1)">
+    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="code_finder_ai" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -72,12 +82,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -86,16 +96,84 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for test_code_parser.TestCodeParserJava" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="code_finder_ai" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_code_parser.TestCodeParserJava&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_code_parser.TestCodeParserJava.test_split_into_chunks" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="code_finder_ai" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_code_parser.TestCodeParserJava.test_split_into_chunks&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_code_parser.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="code_finder_ai" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/test_code_parser.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_code_parser.TestCodeParserJava.test_extract_class_name" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="code_finder_ai" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/.venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_code_parser.TestCodeParserJava.test_extract_class_name&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.main (1)" />
+        <item itemvalue="Python tests.Python tests in test_code_parser.py" />
+        <item itemvalue="Python tests.Unittests for test_code_parser.TestCodeParserJava.test_extract_class_name" />
+        <item itemvalue="Python tests.Python tests for test_code_parser.TestCodeParserJava" />
+        <item itemvalue="Python tests.Python tests for test_code_parser.TestCodeParserJava.test_split_into_chunks" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
+        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
       </set>
     </attachedChunks>
   </component>
@@ -108,15 +186,47 @@
       <option name="presentableId" value="Default" />
       <updated>1708932135129</updated>
       <workItem from="1708932176317" duration="4438000" />
-      <workItem from="1708937341698" duration="11313000" />
+      <workItem from="1708937341698" duration="11882000" />
+      <workItem from="1709138476401" duration="7353000" />
+      <workItem from="1709186290393" duration="267000" />
+      <workItem from="1709186608604" duration="474000" />
+      <workItem from="1709188325021" duration="3652000" />
+      <workItem from="1710010923643" duration="529000" />
     </task>
+    <task id="LOCAL-00001" summary="Add main, code_embedder, and code_searcher Python scripts&#10;&#10;This commit adds three new files: main.py, code_embedder.py, and code_searcher.py. main.py is the prime script, while code_embedder.py generates code embeddings and code_searcher.py utilizes ChromaDB for indexing and searching codebases. The commit also populates .gitignore for proper maintenance and updates requirements.txt with needed dependencies.">
+      <option name="closed" value="true" />
+      <created>1708969432553</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708969432553</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add main, code_embedder, and code_searcher Python scripts&#10;&#10;This commit adds three new files: main.py, code_embedder.py, and code_searcher.py. main.py is the prime script, while code_embedder.py generates code embeddings and code_searcher.py utilizes ChromaDB for indexing and searching codebases. The commit also populates .gitignore for proper maintenance and updates requirements.txt with needed dependencies." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add main, code_embedder, and code_searcher Python scripts&#10;&#10;This commit adds three new files: main.py, code_embedder.py, and code_searcher.py. main.py is the prime script, while code_embedder.py generates code embeddings and code_searcher.py utilizes ChromaDB for indexing and searching codebases. The commit also populates .gitignore for proper maintenance and updates requirements.txt with needed dependencies." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/code_searcher.py</url>
+          <line>82</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/code_finder_ai$code_searcher.coverage" NAME="code_searcher Coverage Results" MODIFIED="1708935429145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/code_finder_ai$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1710011335964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/code_finder_ai$main.coverage" NAME="main Coverage Results" MODIFIED="1708948620027" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/code_finder_ai$Unittests_for_test_code_parser_TestCodeParserJava_test_extract_class_name.coverage" NAME="Unittests for test_code_parser.TestCodeParserJava.test_extract_class_name Coverage Results" MODIFIED="1709196365226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/code_finder_ai$.coverage" NAME=" Coverage Results" MODIFIED="1710011023539" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
   </component>
 </project>

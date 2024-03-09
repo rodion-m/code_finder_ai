@@ -1,9 +1,12 @@
 import os
+from code_parser import Artifact, ParserFactory
 import logging
-from typing import List, Optional
+from typing import List
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
+
+from src.language_service import LanguageService
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -11,13 +14,17 @@ logger = logging.getLogger(__name__)
 
 
 class CodeEmbedder:
-    def __init__(self, model_name: str, max_seq_length: int = 8192):
+    def __init__(self, model_name: str, language: str, language_service: LanguageService, max_seq_length: int = 8192):
         # Don't forget to do: huggingface-cli login
         self.model = SentenceTransformer(model_name, trust_remote_code=True)
         self.max_seq_length = max_seq_length
-        logger.info(f"Initialized CodeEmbedder with model {model_name} and max sequence length {max_seq_length}")
+        self.language = language
+        self.parser = ParserFactory.get_parser(language)
+        self.language_service = language_service
+        logger.info(f"Initialized CodeEmbedder with model {model_name}, max sequence length {max_seq_length}, and language {language}")
 
-    def get_files(self, path: str, extensions: List[str]) -> List[str]:
+    def get_files(self, path: str) -> List[str]:
+        extensions: List[str] = self.language_service.get_supported_extensions(self.language)
         files = []
         for r, d, f in os.walk(path):
             for file in f:
@@ -30,6 +37,22 @@ class CodeEmbedder:
         """Reads the contents of a file and returns it as a string."""
         with open(path, 'r', encoding='utf-8') as file:
             return file.read()
+
+    def get_intelligent_file_embeddings(self, path: str) -> List[Artifact]:
+        """Generates an embedding for the file at the given path, handling large files intelligently."""
+        text = self.get_file_contents(path)
+        artifacts = self.parser.find_artifacts(text)
+        for artifact in artifacts:
+            embedding = self.get_intelligent_code_embeddings(artifact.content)
+            artifact.embedding = embedding
+        return artifacts
+    
+    def get_intelligent_code_embeddings(self, text: str) -> np.ndarray:
+        """Generates an embedding for the given code, compressing it if it exceeds the maximum sequence length."""
+        if len(text) > self.max_seq_length:
+            return self.compress_embeddings(text)
+        else:
+            return self.model.encode(text)
 
     def find_breakpoints(self, text: str) -> List[int]:
         """Identifies logical breakpoints in the code to split into chunks."""
@@ -58,14 +81,12 @@ class CodeEmbedder:
         logger.debug(f"Split text into {len(chunks)} chunks")
         return chunks
 
-    def get_intelligent_file_embeddings(self, path: str) -> np.ndarray:
+    def compress_embeddings(self, text: str) -> np.ndarray:
         """Generates an embedding for the file at the given path, handling large files intelligently."""
-        text = self.get_file_contents(path)
         breakpoints = self.find_breakpoints(text)
         chunks = self.split_into_chunks(text, breakpoints)
         embeddings = np.array([self.model.encode(chunk) for chunk in chunks])
         avg_embedding = np.mean(embeddings, axis=0)
-        logger.info(f"Generated embedding for file {path}")
         return avg_embedding
 
     def get_query_embeddings(self, query: str) -> List[int]:
